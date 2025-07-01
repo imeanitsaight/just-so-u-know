@@ -19,10 +19,12 @@
     <div class="cursor-outline"></div>
 
     <div class="content-wrapper">
-      <header data-aos="fade-down" data-aos-duration="1500">
-        <h1 class="gradient-text">Just so u know</h1>
+      <!-- Usunięto data-aos, dodano data-text -->
+      <header>
+        <h1 class="gradient-text" data-text="Just so u know"></h1>
         <p>Odkryj nowa ere. Doswiadcz czegos niezwykłego. (serio)</p>
       </header>
+
       <main>
         <section
           class="glass-panel"
@@ -91,8 +93,11 @@
         </section>
       </main>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- BIBLIOTEKA DO EFEKTU 3D TILT - DODANE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

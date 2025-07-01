@@ -35,13 +35,12 @@ particlesJS('particles-js', {
   retina_detect: true
 });
 
-// --- Logika kursora (Wersja 3.0) ---
+// --- Logika kursora (Twoja oryginalna, bez zmian) ---
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
 const clickableElements = document.querySelectorAll('a, button, .features li');
-const downloadButton = document.getElementById('download-btn'); // Zmienione z querySelector na getElementById
+const downloadButton = document.getElementById('download-btn');
 
-// 1. Ruch kursora
 window.addEventListener('mousemove', (e) => {
   const { clientX, clientY } = e;
   cursorDot.style.left = `${clientX}px`;
@@ -50,7 +49,6 @@ window.addEventListener('mousemove', (e) => {
   cursorOutline.style.top = `${clientY}px`;
 });
 
-// 2. Interakcje kursora z elementami
 clickableElements.forEach((el) => {
   if (el === downloadButton) {
     el.addEventListener('mouseover', () => {
@@ -69,7 +67,6 @@ clickableElements.forEach((el) => {
   }
 });
 
-// 3. Efekt "Kliknięcia"
 document.addEventListener('mousedown', () => {
   document.body.classList.add('clicking');
 });
@@ -90,4 +87,60 @@ downloadButton.addEventListener('click', () => {
   link.click();
   document.body.removeChild(link);
   console.log(`Rozpoczęto pobieranie pliku: ${fileName}`);
+});
+
+// ===================================================================
+// ================== NOWY KOD - ZACZYNA SIĘ TUTAJ ===================
+// ===================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  // EFEKT 1: 3D TILT NA PANELACH
+  VanillaTilt.init(document.querySelectorAll('.glass-panel'), {
+    'max': 15, // Maksymalny kąt nachylenia
+    'speed': 400, // Szybkość animacji
+    'glare': true, // Efekt "blasku"
+    'max-glare': 0.2 // Intensywność blasku
+  });
+
+  // EFEKT 2: ODSZYFROWYWANIE NAGŁÓWKA
+  const headerElement = document.querySelector('h1.gradient-text');
+  const originalText = headerElement.getAttribute('data-text');
+  const chars = '!<>-_\\/[]{}—=+*^?#________';
+  let decryptInterval;
+
+  function runDecryptEffect() {
+    let iteration = 0;
+    clearInterval(decryptInterval); // Wyczyść poprzedni interwał, jeśli istnieje
+
+    decryptInterval = setInterval(() => {
+      headerElement.textContent = originalText
+        .split('')
+        .map((letter, index) => {
+          if (index < iteration) {
+            return originalText[index];
+          }
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join('');
+
+      if (iteration >= originalText.length) {
+        clearInterval(decryptInterval);
+      }
+      iteration += 1 / 3;
+    }, 55);
+  }
+  // Uruchomienie efektu z małym opóźnieniem dla lepszego wrażenia
+  setTimeout(runDecryptEffect, 800);
+
+  // EFEKT 3: ANIMACJA NAGŁÓWKA NA SCROLL
+  const mainHeader = document.querySelector('header');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      // Zaczyna animację bardzo szybko po rozpoczęciu scrollowania
+      mainHeader.classList.add('scrolled');
+    } else {
+      mainHeader.classList.remove('scrolled');
+    }
+  });
 });
