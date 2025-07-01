@@ -90,57 +90,64 @@ downloadButton.addEventListener('click', () => {
 });
 
 // ===================================================================
-// ================== NOWY KOD - ZACZYNA SIĘ TUTAJ ===================
+// ==================== NOWA LOGIKA ANIMACJI =========================
 // ===================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   // EFEKT 1: 3D TILT NA PANELACH
   VanillaTilt.init(document.querySelectorAll('.glass-panel'), {
-    'max': 15, // Maksymalny kąt nachylenia
-    'speed': 400, // Szybkość animacji
-    'glare': true, // Efekt "blasku"
-    'max-glare': 0.2 // Intensywność blasku
+    'max': 15,
+    'glare': true,
+    'max-glare': 0.2,
+    'speed': 400
   });
 
-  // EFEKT 2: ODSZYFROWYWANIE NAGŁÓWKA
+  // EFEKT 2: ODSZYFROWYWANIE + DOJ*BANA ANIMACJA
   const headerElement = document.querySelector('h1.gradient-text');
   const originalText = headerElement.getAttribute('data-text');
-  const chars = '!<>-_\\/[]{}—=+*^?#________';
-  let decryptInterval;
+  const chars = '!<>-_\\/[]{}—=+*^?#';
 
   function runDecryptEffect() {
     let iteration = 0;
-    clearInterval(decryptInterval); // Wyczyść poprzedni interwał, jeśli istnieje
-
-    decryptInterval = setInterval(() => {
+    const interval = setInterval(() => {
       headerElement.textContent = originalText
         .split('')
         .map((letter, index) => {
-          if (index < iteration) {
-            return originalText[index];
-          }
+          if (index < iteration) return originalText[index];
           return chars[Math.floor(Math.random() * chars.length)];
         })
         .join('');
 
       if (iteration >= originalText.length) {
-        clearInterval(decryptInterval);
+        clearInterval(interval);
+        // --- TU ZACZYNA SIĘ MAGIA ---
+        // Czekamy chwilę po odszyfrowaniu dla dramatyzmu
+        setTimeout(() => {
+          // Dodajemy klasę, która odpala animację eksplozji
+          headerElement.classList.add('animate-explosion');
+
+          // Słuchamy, kiedy animacja się skończy
+          headerElement.addEventListener(
+            'animationend',
+            () => {
+              // Usuwamy klasę animacji, żeby nie odpaliła się ponownie
+              headerElement.classList.remove('animate-explosion');
+
+              // Dodajemy klasę, która płynnie przywróci napis
+              headerElement.classList.add('fade-in');
+            },
+            { once: true }
+          ); // {once: true} sprawia, że listener sam się usunie po jednym razie
+        }, 500); // 500ms pauzy
       }
       iteration += 1 / 3;
-    }, 55);
+    }, 50);
   }
-  // Uruchomienie efektu z małym opóźnieniem dla lepszego wrażenia
   setTimeout(runDecryptEffect, 800);
 
   // EFEKT 3: ANIMACJA NAGŁÓWKA NA SCROLL
   const mainHeader = document.querySelector('header');
-
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      // Zaczyna animację bardzo szybko po rozpoczęciu scrollowania
-      mainHeader.classList.add('scrolled');
-    } else {
-      mainHeader.classList.remove('scrolled');
-    }
+    mainHeader.classList.toggle('scrolled', window.scrollY > 50);
   });
 });
