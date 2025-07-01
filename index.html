@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Just so u know</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div class="content-wrapper">
+      <header data-aos="fade-down" data-aos-duration="1500">
+        <h1 class="gradient-text">Just so u know</h1>
+        <p>Odkryj nowa ere. Doswiadcz czegos niezwykłego. (serio)</p>
+      </header>
+      <main>
+        <section
+          class="glass-panel"
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+        >
+          <h2>Pobierz wersję <span id="version">Alpha</span></h2>
+          <p>Plik instalacyjny waży ~300 MB. Przygotuj się na wrażenia.</p>
+          <button id="download-btn" class="download-button">
+            <span>POBIERZ</span>
+          </button>
+          <div class="checksum-info">
+            <p>
+              SHA-256:
+              <code
+                >5acd1f6ef636e4978972afef2e14c62b3fad47bb68998ffcafd09b0158653484</code
+              >
+            </p>
+          </div>
+        </section>
+        <section
+          class="glass-panel features"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="300"
+        >
+          <h3>Kluczowe Cechy</h3>
+          <ul>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 15.5c.69 0 1.25-.56 1.25-1.25S12.69 15 12 15s-1.25.56-1.25 1.25.56 1.25 1.25 1.25zm.5-3.5h-1v-6h1v6z"
+                />
+              </svg>
+              <span>Przebudowany silnik graficzny</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"
+                />
+              </svg>
+              <span>Dynamiczne oświetlenie otoczenia</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"
+                />
+              </svg>
+              <span>Nowy system zapisu i synchronizacji</span>
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
