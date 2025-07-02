@@ -36,6 +36,7 @@ body {
   padding: 60px 20px;
 }
 
+/* --- PRZEBUDOWANY NAGŁÓWEK 3D --- */
 header {
   position: fixed;
   top: 0;
@@ -48,7 +49,11 @@ header {
   justify-content: center;
   align-items: center;
   perspective: 1000px;
+
+  /* ZMIANA 1: Wolniejsza animacja */
   transition: height 1s ease-in-out, background-color 1s, backdrop-filter 1s;
+
+  /* ZMIANA 2: Nagłówek staje się "przezroczysty" dla myszki, aby można było klikać w tło */
   pointer-events: none;
 }
 
@@ -65,70 +70,32 @@ header {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradient-flow 5s ease infinite;
+
   transform-style: preserve-3d;
   transform: rotateX(70deg) translateZ(50px) scale(1.1);
+
+  /* ZMIANA 1: Wolniejsza animacja */
   transition: transform 1s ease-in-out, font-size 1s ease-in-out;
   min-height: 1.2em;
-  opacity: 1; /* Upewniamy się, że jest widoczny na starcie */
 }
 
-/* =================================================================== */
-/* ================== NOWA, DOJ*BANA ANIMACJA ======================== */
-/* =================================================================== */
-
-@keyframes header-explosion {
-  0% {
-    transform: rotateX(70deg) translateZ(50px) scale(1.1);
-    text-shadow: 0 0 10px var(--secondary-glow);
-    opacity: 1;
-  }
-  50% {
-    /* Pełne 360 na dwóch osiach i gigantyczne powiększenie! */
-    transform: rotateX(360deg) rotateY(360deg) translateZ(100px) scale(2.5);
-    /* Rozbłysk jak z supernowej */
-    text-shadow: 0 0 10px #fff, 0 0 40px var(--secondary-glow),
-      0 0 150px var(--primary-glow);
-    opacity: 1;
-  }
-  99% {
-    /* Znika, kurcząc się i obracając w nicość */
-    transform: rotateX(720deg) rotateY(720deg) translateZ(-500px) scale(0);
-    opacity: 0;
-  }
-  100% {
-    /* Końcowy stan - niewidoczny i zresetowany */
-    transform: rotateX(70deg) translateZ(50px) scale(1.1);
-    opacity: 0;
-  }
+header p {
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-top: 10px;
+  letter-spacing: 2px;
+  transition: opacity 0.8s ease-in-out;
 }
 
-@keyframes fade-in-back {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Klasa, która odpala eksplozję */
-.gradient-text.animate-explosion {
-  animation: header-explosion 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-}
-
-/* Klasa do płynnego powrotu */
-.gradient-text.fade-in {
-  animation: fade-in-back 1s ease-out forwards;
-}
-
-/* =================================================================== */
-
+/* --- STAN NAGŁÓWKA PO PRZEWINIĘCIU --- */
 header.scrolled {
   height: 80px;
   background-color: rgba(10, 10, 20, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--primary-glow);
+
+  /* ZMIANA 2: Przywracamy interaktywność, gdy nagłówek jest małym paskiem */
   pointer-events: auto;
 }
 header.scrolled .gradient-text {
@@ -139,8 +106,8 @@ header.scrolled p {
   opacity: 0;
   pointer-events: none;
 }
+/* -------------------------------------- */
 
-/* ... reszta stylów bez zmian ... */
 .glass-panel {
   background: var(--panel-bg-color);
   border-radius: 15px;
@@ -150,17 +117,22 @@ header.scrolled p {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+
   transform-style: preserve-3d;
   transform: translateZ(0);
 }
+
 .glass-panel:hover {
   box-shadow: 0 0 40px var(--primary-glow);
 }
+
 h2 {
   font-size: 2rem;
   margin-bottom: 15px;
   color: var(--secondary-glow);
 }
+/* ... reszta twoich stylów (download-button, features, etc.) bez zmian ... */
+
 .download-button {
   position: relative;
   display: inline-block;
