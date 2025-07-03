@@ -35,10 +35,10 @@ particlesJS('particles-js', {
   retina_detect: true
 });
 
-// --- Logika kursora (Twoja oryginalna, bez zmian) ---
+// --- Logika kursora ---
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
-const clickableElements = document.querySelectorAll('a, button, .features li');
+const clickableElements = document.querySelectorAll('a, button, .feature-card');
 const downloadButton = document.getElementById('download-btn');
 
 window.addEventListener('mousemove', (e) => {
@@ -74,10 +74,11 @@ document.addEventListener('mouseup', () => {
   document.body.classList.remove('clicking');
 });
 
+// --- Logika pobierania ---
 const fileUrl =
   'https://github.com/imeanitsaight/just-so-u-know/releases/download/crazy/main.exe';
 const version = document.getElementById('version').textContent.trim();
-const fileName = 'Wersja' + version + '.exe';
+const fileName = 'CyberVault-' + version + '.exe';
 
 downloadButton.addEventListener('click', () => {
   const link = document.createElement('a');
@@ -90,19 +91,27 @@ downloadButton.addEventListener('click', () => {
 });
 
 // ===================================================================
-// ================== NOWY KOD - ZACZYNA SIĘ TUTAJ ===================
+// ================== GŁÓWNA LOGIKA STRONY ===========================
 // ===================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // EFEKT 1: 3D TILT NA PANELACH
-  VanillaTilt.init(document.querySelectorAll('.glass-panel'), {
-    'max': 15, // Maksymalny kąt nachylenia
-    'speed': 400, // Szybkość animacji
-    'glare': true, // Efekt "blasku"
-    'max-glare': 0.2 // Intensywność blasku
+  // Efekt 3D TILT na kartach
+  VanillaTilt.init(document.querySelectorAll('.feature-card'), {
+    'max': 10,
+    'speed': 600,
+    'glare': true,
+    'max-glare': 0.1
   });
 
-  // EFEKT 2: ODSZYFROWYWANIE NAGŁÓWKA
+  // Efekt 3D TILT na głównych panelach
+  VanillaTilt.init(document.querySelectorAll('.glass-panel'), {
+    'max': 8,
+    'speed': 800,
+    'glare': true,
+    'max-glare': 0.05
+  });
+
+  // EFEKT ODSZYFROWYWANIA NAGŁÓWKA
   const headerElement = document.querySelector('h1.gradient-text');
   const originalText = headerElement.getAttribute('data-text');
   const chars = '!<>-_\\/[]{}—=+*^?#________';
@@ -110,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function runDecryptEffect() {
     let iteration = 0;
-    clearInterval(decryptInterval); // Wyczyść poprzedni interwał, jeśli istnieje
+    clearInterval(decryptInterval);
 
     decryptInterval = setInterval(() => {
       headerElement.textContent = originalText
@@ -129,18 +138,35 @@ document.addEventListener('DOMContentLoaded', () => {
       iteration += 1 / 3;
     }, 55);
   }
-  // Uruchomienie efektu z małym opóźnieniem dla lepszego wrażenia
   setTimeout(runDecryptEffect, 800);
 
-  // EFEKT 3: ANIMACJA NAGŁÓWKA NA SCROLL
+  // GŁÓWNY LISTENER SCROLLA
   const mainHeader = document.querySelector('header');
+  const scrollPrompt = document.querySelector('.scroll-prompt');
 
   window.addEventListener('scroll', () => {
+    // 1. Logika animacji nagłówka
     if (window.scrollY > 50) {
-      // Zaczyna animację bardzo szybko po rozpoczęciu scrollowania
       mainHeader.classList.add('scrolled');
     } else {
       mainHeader.classList.remove('scrolled');
     }
+
+    // 2. NOWA, POPRAWIONA LOGIKA: Ukryj prompt na stałe po pierwszym scrollu
+    // Sprawdzamy, czy użytkownik przewinął stronę i czy prompt nie jest jeszcze ukryty
+    if (window.scrollY > 5 && !scrollPrompt.classList.contains('hidden')) {
+      // Jeśli tak, dodajemy klasę 'hidden', co uruchomi transition w CSS
+      scrollPrompt.classList.add('hidden');
+    }
   });
 });
+window.addEventListener(
+  'scroll',
+  () => {
+    const scrollPrompt = document.querySelector('.scroll-prompt');
+    if (scrollPrompt) {
+      scrollPrompt.style.display = 'none';
+    }
+  },
+  { once: true }
+); // Opcja { once: true } sprawia, że ten kod wykona się tylko raz i sam się usunie.
