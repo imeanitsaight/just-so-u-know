@@ -76,7 +76,7 @@ document.addEventListener('mouseup', () => {
 
 // --- Logika pobierania ---
 const fileUrl =
-  'https://github.com/imeanitsaight/just-so-u-know/releases/download/crazy/main.exe';
+  'https://github.com/imeanitsaight/just-so-u-know/releases/download/crazy/CyberVault.exe';
 const version = document.getElementById('version').textContent.trim();
 const fileName = 'CyberVault-' + version + '.exe';
 
